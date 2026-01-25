@@ -1,5 +1,4 @@
 <template>
-  <!-- 热点栏 -->
   <el-card shadow="never">
     <template #header>
       热点
@@ -29,7 +28,7 @@ type HotTopic = {
   id: string;
   title: string;
   desc: string;
-  heat: string; // 热度展示用
+  heat: string;
 };
 
 const hotTopics = ref<HotTopic[]>([

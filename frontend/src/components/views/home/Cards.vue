@@ -1,33 +1,26 @@
 <template>
-  <div class="tw:grid tw:grid-cols-3 tw:gap-4">
-  <el-card
-        v-for="site in sites"
-        :key="site.key"
-        shadow="hover"
-        class="tw:cursor-pointer"
+  <div :style="{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }">
+    <el-card
+      v-for="site in sites"
+      :key="site.key"
+      shadow="hover"
+      :style="{ cursor: 'pointer' }"
     >
-      <div class="tw:flex tw:items-start tw:gap-4">
-        <!-- 左侧图标 -->
+      <div :style="{ display: 'flex', alignItems: 'flex-start', gap: '16px' }">
         <el-icon :size="40">
           <component :is="site.icon" />
         </el-icon>
-
-        <!-- 右侧文字 -->
         <div>
-          <div class="tw:font-semibold">
-            {{ site.name }}
-          </div>
-          <div class="tw:text-sm tw:text-gray-500 tw:leading-relaxed">
-            {{ site.desc }}
-          </div>
+          <div :style="{ fontWeight: '600' }">{{ site.name }}</div>
+          <div :style="{ fontSize: '12px', color: '#666', lineHeight: '1.5' }">{{ site.desc }}</div>
         </div>
       </div>
     </el-card>
   </div>
 </template>
 
-
 <script lang="ts" setup>
+
 import {
   HomeFilled,
   DataAnalysis,
@@ -76,4 +69,3 @@ const sites = [
   }
 ]
 </script>
-
