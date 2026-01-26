@@ -1,18 +1,14 @@
 <template>
   <!-- 登录页面容器 -->
-  <div class="login-container">
+  <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f5f5f5;">
     <!-- 登录卡片 -->
-    <el-card class="login-card">
-      <h2 class="login-title">用户登录</h2>
+    <el-card style="width: 400px; padding: 30px;">
+      <h2 style="text-align: center; margin-bottom: 30px; color: #333;">用户登录</h2>
       <!-- 登录表单 -->
       <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef" label-position="top" hide-required-asterisk>
         <!-- 邮箱输入框 -->
         <el-form-item label="邮箱" prop="email">
-          <el-input 
-            v-model="loginForm.email" 
-            placeholder="请输入邮箱"
-          />
-        </el-form-item>
+          <el-input v-model="loginForm.email"  placeholder="请输入邮箱"/> </el-form-item>
         <!-- 密码输入框 -->
         <el-form-item label="密码" prop="password">
           <el-input
@@ -32,17 +28,18 @@
               />
             </el-col>
             <el-col :span="8">
-              <div class="captcha-image">
-                <div class="captcha-text">验证码UI<br>待后端接入</div>
+              <div style="width: 100%; height: 40px; overflow: hidden; border-radius: 4px; background-color: #f5f7fa; display: flex; align-items: center; justify-content: center;">
+                <div style="font-size: 12px; color: #999; text-align: center; line-height: 1.4;">验证码UI<br>待后端接入</div>
               </div>
             </el-col>
           </el-row>
         </el-form-item>
         <!-- 登录按钮 -->
-       <el-form-item>            <el-button type="primary" @click="handleLogin" style="width: 100%;">登录</el-button>
+        <el-form-item>
+          <el-button type="primary" @click="handleLogin" style="width: 100%;">登录</el-button>
         </el-form-item>
         <!-- 底部链接 -->
-        <div class="login-footer">
+        <div style="display: flex; justify-content: space-between; margin-top: 20px;">
           <el-link type="primary" @click="showForgotPassword = true">忘记密码？</el-link>
           <el-link type="primary" @click="showRegister = true">注册账号</el-link>
         </div>
@@ -210,51 +207,4 @@ const handleForgotPassword = () => {
   })
 }
 </script>
-
-<style scoped>
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-}
-
-.login-card {
-  width: 400px;
-  padding: 30px;
-}
-
-.login-title {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-}
-
-/* 验证码样式 */
-.captcha-image {
-  width: 100%;
-  height: 40px;
-  overflow: hidden;
-  border-radius: 4px;
-  background-color: #f5f7fa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.captcha-text {
-  font-size: 12px;
-  color: #999;
-  text-align: center;
-  line-height: 1.4;
-}
-
-/* 底部链接样式 */
-.login-footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-</style>
 ```
