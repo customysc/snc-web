@@ -1,25 +1,28 @@
 <template>
-  <el-card shadow="never">
+  <el-card shadow="never" :style="{ marginBottom: '10px' }">
     <template #header>
-      公告栏
+      <div :style="{ fontSize: '16px', fontWeight: 600 }">最新公告（生活相关）</div>
     </template>
 
     <el-empty v-if="announcements.length === 0" description="暂无公告" />
+    
     <el-timeline v-else>
       <el-timeline-item
-          v-for="item in announcements"
-          :key="item.id"
-          :timestamp="item.date"
+        v-for="item in announcements"
+        :key="item.id"
+        :timestamp="item.date"
+        placement="top"
+        :style="{ marginBottom: '15px' }"
       >
-        <div>{{ item.title }}</div>
-        <div>{{ item.content }}</div>
+        <div :style="{ fontSize: '14px', fontWeight: 500 }">{{ item.title }}</div>
+        <div :style="{ fontSize: '12px', color: '#666', marginTop: '4px' }">{{ item.content }}</div>
       </el-timeline-item>
     </el-timeline>
   </el-card>
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref } from "vue";
 
 type Announcement = {
   id: string;

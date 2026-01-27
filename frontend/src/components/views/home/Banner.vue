@@ -13,4 +13,3 @@ const banners = [
   'banners/image3.png',
 ]
 </script>
-
