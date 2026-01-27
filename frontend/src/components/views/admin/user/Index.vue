@@ -1,47 +1,85 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column type="selection" width="55" />
-    <el-table-column label="Date" width="120">
-      <template #default="scope">{{ scope.row.date }}</template>
-    </el-table-column>
-    <el-table-column property="name" label="Name" width="120" />
-    <el-table-column
-        property="address"
-        label="use show-overflow-tooltip"
-        width="240"
-        show-overflow-tooltip
-    />
-    <el-table-column property="address" label="address" />
-  </el-table>
+ <el-table :data="tableData" :border="true" style="width: 100%;">
+   <el-table-column prop="name" label="姓名" width="240" />
+   <el-table-column prop="phonenumber" label="电话号码" width="240" />
+   <el-table-column prop="email" label="邮箱" width="240" :show-overflow-tooltip="true"/>
+   <el-table-column prop="id" label="学工号" width="240"/>
+   <el-table-column label="操作" width="360">
+    <template #default>
+      <el-button 
+          plain 
+          size="small" 
+          style="margin-right: 8px;"
+        >
+          详情
+        </el-button>
+      <el-button 
+          plain 
+          size="small" 
+          style="margin-right: 8px;"
+        >
+          编辑
+        </el-button>
+      <el-button 
+          plain
+          size="small" 
+        >
+          删除
+        </el-button>
+    </template>
+   </el-table-column>
+ </el-table>
+
+  <el-button-group>
+    <el-button size="default">
+      <el-icon><ArrowLeft/></el-icon>
+    </el-button>
+    <el-button size="default" :disabled="true">1</el-button>
+    <el-button size="default">
+      <el-icon><ArrowRight/></el-icon>
+    </el-button>
+  </el-button-group>
 </template>
 
+
 <script lang="ts" setup>
+
+import { ElTable, ElTableColumn, ElButton, ElButtonGroup, ElIcon} from 'element-plus'
+import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue'
+
 interface User {
-  date: string
   name: string
-  address: string
+  phonenumber:string
+  email: string
+  id:string
 }
-const tableData: User[] = [
+
+const tableData : User[]=[
   {
-    date: '2016-05-04',
     name: 'Aleyna Kutzner',
-    address: 'Lohrbergstr. 86c, Süd Lilli, Saarland',
+    phonenumber: '18020240001',
+    email: '2024010001@test.com',
+    id: '2024010001'
   },
   {
-    date: '2016-05-03',
     name: 'Helen Jacobi',
-    address: '760 A Street, South Frankfield, Illinois',
+    phonenumber: '18020240002',
+    email: '2024010002@test.com',
+    id: '2024010002'
   },
   {
-    date: '2016-05-02',
     name: 'Brandon Deckert',
-    address: 'Arnold-Ohletz-Str. 41a, Alt Malinascheid, Thüringen',
+    phonenumber: '18020250001',
+    email: '2025010001@test.com',
+    id: '2025010001'
   },
   {
-    date: '2016-05-01',
-    name: 'Margie Smith',
-    address: '23618 Windsor Drive, West Ricardoview, Idaho',
+    name: 'Magie Smith',
+    phonenumber: '18020250002',
+    email: '2025020001@test.com',
+    id: '2025020001'
   },
 ]
+
 </script>
 
