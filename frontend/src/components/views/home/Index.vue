@@ -8,11 +8,9 @@
     <Cards />
   </div>
 </template>
-
 <script setup lang="ts">
 import Banner from "@/components/views/home/Banner.vue";
 import Cards from "@/components/views/home/Cards.vue";
 import Announcement from "@/components/views/home/Announcement.vue";
 import HotTopics from "@/components/views/home/HotTopics.vue";
-
 </script>

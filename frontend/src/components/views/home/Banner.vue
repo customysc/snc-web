@@ -23,4 +23,3 @@ const banners = [
   { src: '/banners/image3.png', title: '轮播图3' },
 ]
 </script>
-
