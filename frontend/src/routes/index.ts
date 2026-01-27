@@ -3,7 +3,9 @@ import Home from "@/components/views/home/Index.vue"
 import BBS from "@/components/views/bbs/threadList/Index.vue"
 import BBSDetail from "@/components/views/bbs/thread/Index.vue"
 import OKR from "@/components/views/okr/Index.vue"
-import Login from "@/components/views/login/Index.vue"
+import Login from "@/components/views/login/LoginForm.vue"
+import Register from "@/components/views/login/RegisterForm.vue"
+import ForgotPassword from "@/components/views/login/ForgotPasswordForm.vue"
 import Admin from "@/components/views/admin/Index.vue"
 import User from "@/components/views/admin/user/Index.vue"
 import Role from "@/components/views/admin/role/Index.vue"
@@ -26,6 +28,20 @@ const routes: Array<RouteRecordRaw> = [
         component: BlankLayout,
         children: [
             { path: '', name: 'Login', component: Login },
+        ],
+    },
+    {
+        path: '/register',
+        component: BlankLayout,
+        children: [
+            { path: '', name: 'Register', component: Register },
+        ],
+    },
+    {
+        path: '/forgot-password',
+        component: BlankLayout,
+        children: [
+            { path: '', name: 'ForgotPassword', component: ForgotPassword },
         ],
     },
     {
