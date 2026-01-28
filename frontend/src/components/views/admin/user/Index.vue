@@ -1,4 +1,5 @@
 <template>
+   <!-- 操作按钮区域 -->
  <div class="contianer" style="margin-bottom: 16px;">
   <el-button 
           plain 
@@ -21,13 +22,14 @@
           回收站
         </el-button>
   </div>
-
+ <!--用户信息表格-->
  <el-table :data="paginatedTableData" :border="true" style="width: 100%;">
    <el-table-column prop="name" label="姓名" width="240" />
    <el-table-column prop="phonenumber" label="电话号码" width="240" />
    <el-table-column prop="email" label="邮箱" width="240" :show-overflow-tooltip="true"/>
    <el-table-column prop="id" label="学工号" width="240"/>
    <el-table-column label="操作" width="360">
+    <!--操作列-->
     <template #default>
       <el-button 
           plain 
@@ -52,7 +54,7 @@
     </template>
    </el-table-column>
  </el-table>
-
+ <!--分页组件-->
   <div style="position:fixed;bottom:20px;right: 20px; text-align: right;">
     <el-pagination
      v-model:current-page="currentPage"
@@ -79,6 +81,7 @@ interface User {
   id:string
 }
 
+//模拟数据
 const tableData : User[]=[
   {
     name: 'Aleyna Kutzner',

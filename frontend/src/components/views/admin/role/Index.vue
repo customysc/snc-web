@@ -11,6 +11,7 @@
   >
 
    角色权限配置:
+   <!--菜单树表-->
    <el-tree
     v-model="value"
     :data="data"
@@ -21,6 +22,7 @@
     default-expand-all="true"
    />
    
+   <!--操作按钮区域-->
    <div style="position:fixed;bottom: 20px;right: 20px;">
       <el-button>取消</el-button>
       <el-button>仅保存</el-button>
@@ -36,6 +38,7 @@ const table = ref(false)
 
 const value = ref()
 
+//模拟数据
 const data = [
   {
     value: '1',
