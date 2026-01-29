@@ -14,3 +14,7 @@ class Result[T](BaseModel):
     @staticmethod
     def ok(msg: str = "", data: T = None) -> "Result[T]":
         return Result(success=True, code=Constant.RESULT_CODE_OK, message=msg, result=data)
+
+    @staticmethod
+    def fail(msg: str = "", data: T = None) -> "Result[T]":
+        return Result(success=False, code=Constant.RESULT_CODE_ERROR, message=msg, result=data)
