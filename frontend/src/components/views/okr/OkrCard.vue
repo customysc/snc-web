@@ -556,7 +556,6 @@ input[type=number]::-webkit-outer-spin-button {
 import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { MoreFilled } from '@element-plus/icons-vue';
 import { ElMessageBox, ElMessage, ElTooltip } from 'element-plus';
-import { useUserStore } from '@/stores/userStore';
 
 interface CardSubTask {
   id: number;
@@ -621,16 +620,13 @@ const deleteMenuVisible = ref<boolean[]>([]);
 const isDeleteHovered = ref(false);
 const localKeyResults = ref<KeyResult[]>([...(props.keyResults || [])]);
 const showAllParticipants = ref(false);
-const userStore = useUserStore();
 const comments = ref<Comment[]>([]);
 const newComment = ref('');
 const currentUserAvatar = computed(() => {
-  const user = userStore.getCurrentUser();
-  return user?.avatar || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png';
+  return 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png';
 });
 const currentUserName = computed(() => {
-  const user = userStore.getCurrentUser();
-  return user?.name || '当前用户';
+  return '当前用户';
 });
 const localTotalScore = ref<number>(props.totalScore);
 const scoreHoverVisible = ref<boolean[]>([]);
@@ -689,7 +685,7 @@ onMounted(() => {
   });
   
   // 初始化用户信息
-  userStore.initDefaultUser();
+  
   
   document.addEventListener('click', handleClickOutside);
 });
