@@ -1,0 +1,2 @@
+class SysUserService:
+    pass
