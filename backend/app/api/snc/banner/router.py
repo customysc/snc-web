@@ -4,7 +4,7 @@ from fastapi import APIRouter
 from sqlalchemy import select
 
 from app.api.deps import SessionDep
-from app.api.snc.SncConstant import SncConstant
+from app.api.snc.snc_constant import SncConstant
 from app.api.snc.banner.dto import SncBannerReadDto, SncBannerCreateDto
 from app.api.snc.banner.mapper import BannerMapper
 from app.api.snc.banner.model import SncBanner

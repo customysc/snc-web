@@ -20,7 +20,7 @@ fileConfig(config.config_file_name)
 from app.api.sys.user.model import SysUser, SysRole, SysPermission, SysUserRole, SysRolePermission
 from app.api.snc.announcement.model import SncAnnouncement
 from app.api.snc.banner.model import SncBanner
-from app.api.bbs.model import BbsThread, BbsPost, BbsComment
+from app.api.bbs.thread.model import BbsThread, BbsPost, BbsComment
 
 __all__ = [SysUser, SysRole, SysPermission, SysUserRole, SysRolePermission, SncBanner, SncAnnouncement,BbsThread, BbsPost, BbsComment]
 

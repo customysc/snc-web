@@ -46,7 +46,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/okr',
-        component: MainLayout,
+        component: BlankLayout,
         children: [
             { path: '', name: 'OKR', component: OKR },
         ],
