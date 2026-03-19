@@ -1,5 +1,4 @@
-from app.api.bbs.post.model import BbsPost
-from app.api.bbs.thread.model import BbsThread
+from app.api.bbs.model import BbsThread, BbsPost
 from app.utils.base_mapper import BaseMapper
 
 

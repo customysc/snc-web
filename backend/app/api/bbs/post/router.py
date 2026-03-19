@@ -1,9 +1,8 @@
 from fastapi import APIRouter
 
 from app.api.bbs.post.dto import SncPostCreateDto
-from app.api.bbs.thread.dto import SncThreadCreateDto
-from app.api.bbs.thread.mapper import ThreadMapper
-from app.api.bbs.thread.model import BbsThread
+from app.api.bbs.post.mapper import PostMapper
+from app.api.bbs.model import BbsThread
 from app.api.deps import SessionDep
 from app.utils.page_dto import PageDto
 from app.utils.result import Result

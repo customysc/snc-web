@@ -1,14 +1,15 @@
 import {createRouter, createWebHistory, type RouteRecordRaw} from "vue-router";
-import Home from "@/components/views/home/Index.vue"
-import BBS from "@/components/views/bbs/threadList/Index.vue"
-import BBSDetail from "@/components/views/bbs/thread/Index.vue"
-import OKR from "@/components/views/okr/Index.vue"
-import Login from "@/components/views/login/LoginForm.vue"
-import Register from "@/components/views/login/RegisterForm.vue"
-import ForgotPassword from "@/components/views/login/ForgotPasswordForm.vue"
-import Admin from "@/components/views/admin/Index.vue"
-import User from "@/components/views/admin/user/Index.vue"
-import Role from "@/components/views/admin/role/Index.vue"
+import Home from "@/views/home/Index.vue"
+import BBS from "@/views/bbs/threadList/Index.vue"
+import BBSDetail from "@/views/bbs/thread/Index.vue"
+import OKR from "@/views/okr/Index.vue"
+import Login from "@/views/login/LoginForm.vue"
+import Register from "@/views/login/RegisterForm.vue"
+import ForgotPassword from "@/views/login/ForgotPasswordForm.vue"
+import Admin from "@/views/admin/Index.vue"
+import User from "@/views/admin/user/Index.vue"
+import Role from "@/views/admin/role/Index.vue"
+import Interview from "@/views/iv/interview/Index.vue"
 import MainLayout from "@/components/layout/MainLayout.vue";
 import BlankLayout from "@/components/layout/BlankLayout.vue";
 import AdminLayout from "@/components/layout/AdminLayout.vue";
@@ -60,6 +61,13 @@ const routes: Array<RouteRecordRaw> = [
             { path: 'role', name: 'Role', component: Role },
         ],
     },
+    {
+        path: '/iv',
+        component: AdminLayout,
+        children: [
+            { path: 'interview', name: 'Interview', component: Interview },
+        ]
+    }
 ]
 
 const router = createRouter({

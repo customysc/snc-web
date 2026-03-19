@@ -1,4 +1,4 @@
-from app.api.bbs.comment.model import BbsComment
+from app.api.bbs.model import BbsComment
 from app.utils.base_mapper import BaseMapper
 
 

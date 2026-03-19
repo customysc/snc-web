@@ -2,7 +2,8 @@ from fastapi import APIRouter
 
 from app.api.bbs.comment.dto import SncCommentCreateDto
 from app.api.bbs.comment.mapper import CommentMapper
-from app.api.bbs.comment.model import BbsComment
+from app.api.bbs.model import BbsComment
+
 from app.api.deps import SessionDep
 from app.utils.page_dto import PageDto
 from app.utils.result import Result
