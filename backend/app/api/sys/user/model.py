@@ -11,6 +11,8 @@ class SysUser(BaseEntity):
     email: Mapped[Optional[str]] = mapped_column(String(255), comment="邮箱")
     phone: Mapped[Optional[str]] = mapped_column(String(64), comment="电话")
 
+    student_no: Mapped[Optional[str]] = mapped_column(String(64), comment="学工号")
+
     username: Mapped[Optional[str]] = mapped_column(String(64), comment="用户名")
     nickname: Mapped[Optional[str]] = mapped_column(String(64), comment="昵称")
 

@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import Integer, BigInteger, String, Text, DateTime
+from sqlalchemy import BigInteger, Integer, String, Text, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.utils.base_entity import BaseEntity
@@ -17,7 +17,6 @@ class BbsThread(BaseEntity):
 
     status: Mapped[Optional[str]] = mapped_column(String(64))
 
-
 class BbsPost(BaseEntity):
     __tablename__ = "bbs_post"
 
@@ -29,7 +28,6 @@ class BbsPost(BaseEntity):
 
     sort_order: Mapped[Optional[int]] = mapped_column(Integer)
     status: Mapped[Optional[str]] = mapped_column(String(64))
-
 
 class BbsComment(BaseEntity):
     __tablename__ = "bbs_comment"

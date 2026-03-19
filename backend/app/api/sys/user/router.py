@@ -25,7 +25,7 @@ def list_all(session: SessionDep):
 
 @router.post("/add", response_model=Result)
 def add(session: SessionDep, user: SysUserCreateDto):
-    data = user.model_dump()
+    data = user.model_dump(exclude_unset=True)
     db_user = SysUser(**data)
     session.add(db_user)
     session.commit()

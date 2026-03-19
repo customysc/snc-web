@@ -20,9 +20,15 @@ fileConfig(config.config_file_name)
 from app.api.sys.user.model import SysUser, SysRole, SysPermission, SysUserRole, SysRolePermission
 from app.api.snc.announcement.model import SncAnnouncement
 from app.api.snc.banner.model import SncBanner
-from app.api.bbs.model import BbsThread, BbsPost, BbsComment
+from app.api.bbs.model import *
+from app.api.iv.model import *
+from app.api.xware.model import *
 
-__all__ = [SysUser, SysRole, SysPermission, SysUserRole, SysRolePermission, SncBanner, SncAnnouncement,BbsThread, BbsPost, BbsComment]
+__all__ = [SysUser, SysRole, SysPermission, SysUserRole, SysRolePermission,
+           SncBanner, SncAnnouncement,
+           BbsThread, BbsPost, BbsComment,
+           IvInterview, IvInterviewRound, IvInterviewUser, IvGroup, IvComment, IvAttendance, IvRegistration,
+           XWOrderUser, XWOrder, XWAttendance]
 
 from app.core.config import settings
 from app.utils.base_entity import BaseEntity

@@ -10,14 +10,18 @@ class UserDto(BaseEntityDto):
     nickname: Optional[str]
     avatar: Optional[str]
 
-
 class SysUserReadDto(BaseEntityDto):
-    email: Optional[str]
-    username: Optional[str]
+    email: Optional[str] = None
+    phone: Optional[str] = None
+    username: Optional[str] = None
+    nickname: Optional[str] = None
+    student_no: Optional[str] = None
+    avatar: Optional[str] = None
 
 class SysUserCreateDto(BaseEntityDto):
-    email: Optional[str]
-    phone: Optional[str]
-    username: Optional[str]
-    nickname: Optional[str]
-    avatar: Optional[str]
+    email: Optional[str] = None
+    phone: Optional[str] = None
+    username: Optional[str] = None
+    nickname: Optional[str] = None
+    password: Optional[str] = None
+    avatar: Optional[str] = None

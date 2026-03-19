@@ -3,14 +3,15 @@ from typing import Optional
 
 from pydantic import BaseModel, ConfigDict
 
-class BaseDto(BaseModel):
+class dto(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
+class BaseDto(dto):
+    id: Optional[int] = None
 
 class BaseEntityDto(BaseDto):
-    id: Optional[int]
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
-    created_by: Optional[int]
-    updated_by: Optional[int]
-    del_flag: Optional[int]
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+    created_by: Optional[int] = None
+    updated_by: Optional[int] = None
+    del_flag: Optional[int] = None
