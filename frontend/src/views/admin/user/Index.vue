@@ -53,8 +53,7 @@ const handleSizeChange = (val:number) => {
 }
 
 const handleGetList = async (params?) => {
-  console.log('哈哈哈哈哈');
-  console.log(params);
+
   const res = await userPageApi(params);
   const data = res.data;
   const result = data.result;
