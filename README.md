@@ -1,11 +1,19 @@
 # SNC寒假WEB开发
 本项目使用FastAPi + Vue3 + Mysql开发
 # 依赖
+*请注意本项目强制要求使用 Python 3.12, 高版本或低版本均可能有问题*
 Python 3.12
 Node.js 20
 # 快速开始
 ## 前端
-建议使用
+换用淘宝源
+```shell
+npm config set registry http://registry.npmmirror.com
+```
+建议使用 pnpm
+```shell
+npm install -g pnpm
+```
 安装依赖
 ```shell
 pnpm install
@@ -14,6 +22,20 @@ pnpm install
 ```shell
 pnpm run dev
 ```
+## 后端
+创建虚拟环境
+```shell
+python -m venv .venv
+```
+激活虚拟环境
+```shell
+.\.venv\scripts\activate
+```
+安装
+```shell
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
 # 规范Git提交
 ## 关于分支保护
 main分支被保护，仅允许branch后，修改再合并，合并前需要代码审查
