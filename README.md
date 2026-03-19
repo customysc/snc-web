@@ -36,6 +36,13 @@ python -m venv .venv
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
+配置数据库
+复制.env.example文件为.env，再填写配置
+启动应用
+```shell
+fastapi run --reload app/main.py
+```
+
 # 规范Git提交
 ## 关于分支保护
 main分支被保护，仅允许branch后，修改再合并，合并前需要代码审查
