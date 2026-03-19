@@ -1,6 +1,8 @@
+from typing import Annotated, Any, Literal
+from pathlib import Path
+
 import secrets
 import warnings
-from typing import Annotated, Any, Literal
 
 from pydantic import (
     AnyUrl,
@@ -37,9 +39,9 @@ class Settings(BaseSettings):
     FRONTEND_HOST: str = "http://localhost:5173"
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
 
-    BACKEND_CORS_ORIGINS: Annotated[
-        list[AnyUrl] | str, BeforeValidator(parse_cors)
-    ] = []
+    BACKEND_CORS_ORIGINS: Annotated[list[AnyUrl] | str, BeforeValidator(parse_cors)] = (
+        []
+    )
 
     @computed_field  # type: ignore[prop-decorator]
     @property
@@ -115,5 +117,8 @@ class Settings(BaseSettings):
 
         return self
 
+
+if not (Path.cwd() / ".env").exists():
+    raise FileNotFoundError("Please create the `.env`.")
 
 settings = Settings()  # type: ignore
