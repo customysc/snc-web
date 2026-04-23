@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>X-ware 维修工单看板</title>
+  <style>
+    :root {
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 10px;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --border: #e6eaf2;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --success: #16a34a;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC","Microsoft YaHei",Arial,sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: 24px;
+    }
+
+    /* 顶部一排名字工作区 */
+    .board {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .worker-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg); /* 弧线边缘 */
+      box-shadow: 0 6px 20px rgba(17, 24, 39, 0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 420px;
+    }
+
+    .worker-header {
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: linear-gradient(180deg, #ffffff, #fbfcff);
+    }
+
+    .worker-name {
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .add-btn {
+      border: none;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: transform .15s ease, opacity .2s ease;
+    }
+    .add-btn:hover { opacity: .92; transform: translateY(-1px); }
+
+    .worker-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .empty-tip {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 8px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      background: #fafbff;
+    }
+
+    /* 项目卡片 */
+    .ticket-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md); /* 弧线边缘 */
+      background: #fff;
+      padding: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    }
+
+    .ticket-title {
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .ticket-line {
+      font-size: 13px;
+      color: #374151;
+      margin: 3px 0;
+      word-break: break-all;
+    }
+    .ticket-line span {
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    /* 维修状态按钮 */
+    .status-btn {
+      margin-top: 10px;
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 10px; /* 弧线边缘 */
+      padding: 8px 10px;
+      background: #fff;
+      color: #111827;
+      cursor: pointer;
+      transition: all .2s ease;
+      font-weight: 600;
+    }
+
+    .status-btn.done {
+      border-color: #15803d;
+      background: #22c55e;
+      color: #fff;
+    }
+
+    /* 弹窗遮罩 */
+    .modal-mask {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease; /* 0.2秒出现变化 */
+      z-index: 999;
+    }
+    .modal-mask.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* 弹窗主体 */
+    .modal {
+      width: 100%;
+      max-width: 540px;
+      background: #fff;
+      border-radius: 18px; /* 弧线边缘 */
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 45px rgba(2, 8, 23, 0.2);
+      transform: translateY(10px) scale(.98);
+      opacity: 0;
+      transition: transform .2s ease, opacity .2s ease; /* 0.2秒动画 */
+    }
+
+    .modal-mask.show .modal {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .modal-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .close-btn {
+      border: none;
+      background: transparent;
+      font-size: 18px;
+      cursor: pointer;
+      line-height: 1;
+      color: #6b7280;
+    }
+
+    .modal-body {
+      padding: 14px 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      color: #4b5563;
+    }
+
+    input, textarea {
+      border: 1px solid #d1d5db;
+      border-radius: 10px; /* 弧线边缘 */
+      padding: 9px 10px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+      background: #fff;
+    }
+    input:focus, textarea:focus {
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+    }
+
+    textarea { min-height: 84px; resize: vertical; }
+
+    .modal-footer {
+      padding: 12px 16px 16px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px; /* 弧线边缘 */
+      padding: 9px 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: opacity .2s ease, transform .15s ease;
+    }
+    .btn:hover { opacity: .93; transform: translateY(-1px); }
+    .btn-cancel { background: #e5e7eb; color: #111827; }
+    .btn-submit { background: var(--primary); color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>X-ware 维修工单看板</h1>
+
+    <!-- 顶部一排名字工作区 -->
+    <div class="board" id="board"></div>
+  </div>
+
+  <!-- 弹窗 -->
+  <div class="modal-mask" id="modalMask">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">添加项目</h3>
+        <button class="close-btn" id="closeModalBtn">✕</button>
+      </div>
+
+      <form id="ticketForm">
+        <div class="modal-body">
+          <div class="grid">
+            <div class="field">
+              <label>姓名</label>
+              <input name="name" required />
+            </div>
+            <div class="field">
+              <label>学院</label>
+              <input name="college" required />
+            </div>
+            <div class="field">
+              <label>学号</label>
+              <input name="studentId" required />
+            </div>
+            <div class="field">
+              <label>电脑型号</label>
+              <input name="deviceModel" required />
+            </div>
+            <div class="field full">
+              <label>维修项目</label>
+              <textarea name="repairItem" required></textarea>
+            </div>
+            <div class="field full">
+              <label>报修时间</label>
+              <!-- 自动填当前电脑时间，也可手改 -->
+              <input name="reportTime" id="reportTimeInput" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" id="cancelBtn">取消</button>
+          <button type="submit" class="btn btn-submit">提交项目</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // 维修人员（顶部一排名字）
+    const workers = ["张三", "李四", "王五", "赵六"];
+
+    // 数据结构：每个维修人员下有自己的项目列表
+    const store = {};
+    workers.forEach(w => store[w] = []);
+
+    const board = document.getElementById("board");
+    const modalMask = document.getElementById("modalMask");
+    const modalTitle = document.getElementById("modalTitle");
+    const ticketForm = document.getElementById("ticketForm");
+    const reportTimeInput = document.getElementById("reportTimeInput");
+
+    let currentWorker = ""; // 当前给谁添加项目
+
+    // 格式化当前电脑时间：YYYY-MM-DD HH:mm:ss
+    function getNowTimeString() {
+      const d = new Date();
+      const pad = n => String(n).padStart(2, "0");
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    }
+
+    // 打开弹窗（带0.2秒动画）
+    function openModal(workerName) {
+      currentWorker = workerName;
+      modalTitle.textContent = `为 ${workerName} 添加项目`;
+      ticketForm.reset();
+      reportTimeInput.value = getNowTimeString(); // 自动填充当前时间
+      modalMask.classList.add("show");
+    }
+
+    // 关闭弹窗
+    function closeModal() {
+      modalMask.classList.remove("show");
+      currentWorker = "";
+    }
+
+    // 渲染整块看板
+    function renderBoard() {
+      board.innerHTML = "";
+
+      workers.forEach(worker => {
+        const panel = document.createElement("section");
+        panel.className = "worker-panel";
+
+        const header = document.createElement("div");
+        header.className = "worker-header";
+
+        const name = document.createElement("div");
+        name.className = "worker-name";
+        name.textContent = worker;
+
+        const addBtn = document.createElement("button");
+        addBtn.className = "add-btn";
+        addBtn.textContent = "添加项目";
+        addBtn.onclick = () => openModal(worker);
+
+        header.appendChild(name);
+        header.appendChild(addBtn);
+
+        const body = document.createElement("div");
+        body.className = "worker-body";
+
+        const list = store[worker];
+        if (!list.length) {
+          const empty = document.createElement("div");
+          empty.className = "empty-tip";
+          empty.textContent = "暂无项目，点击“添加项目”开始录入。";
+          body.appendChild(empty);
+        } else {
+          list.forEach((item, idx) => {
+            const card = document.createElement("div");
+            card.className = "ticket-card";
+
+            card.innerHTML = `
+              <div class="ticket-title">项目 #${idx + 1}</div>
+              <div class="ticket-line"><span>姓名:</span>${item.name}</div>
+              <div class="ticket-line"><span>学院:</span>${item.college}</div>
+              <div class="ticket-line"><span>学号:</span>${item.studentId}</div>
+              <div class="ticket-line"><span>电脑型号:</span>${item.deviceModel}</div>
+              <div class="ticket-line"><span>维修项目:</span>${item.repairItem}</div>
+              <div class="ticket-line"><span>报修时间:</span>${item.reportTime}</div>
+            `;
+
+            const statusBtn = document.createElement("button");
+            statusBtn.className = "status-btn" + (item.done ? " done" : "");
+            statusBtn.textContent = item.done ? "已维修" : "未维修";
+
+            // 点击切换维修状态：白色未维修 <-> 绿色已维修
+            statusBtn.onclick = () => {
+              item.done = !item.done;
+              renderBoard();
+            };
+
+            card.appendChild(statusBtn);
+            body.appendChild(card);
+          });
+        }
+
+        panel.appendChild(header);
+        panel.appendChild(body);
+        board.appendChild(panel);
+      });
+    }
+
+    // 表单提交：把项目加入当前人员工作区
+    ticketForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!currentWorker) return;
+
+      const fd = new FormData(ticketForm);
+      const item = {
+        name: (fd.get("name") || "").toString().trim(),
+        college: (fd.get("college") || "").toString().trim(),
+        studentId: (fd.get("studentId") || "").toString().trim(),
+        deviceModel: (fd.get("deviceModel") || "").toString().trim(),
+        repairItem: (fd.get("repairItem") || "").toString().trim(),
+        reportTime: (fd.get("reportTime") || "").toString().trim(),
+        done: false // 初始未维修
+      };
+
+      // 简单校验
+      if (!item.name || !item.college || !item.studentId || !item.deviceModel || !item.repairItem || !item.reportTime) {
+        alert("请完整填写所有字段");
+        return;
+      }
+
+      store[currentWorker].push(item);
+      closeModal();
+      renderBoard();
+    });
+
+    // 点击遮罩关闭
+    modalMask.addEventListener("click", (e) => {
+      if (e.target === modalMask) closeModal();
+    });
+
+    document.getElementById("closeModalBtn").onclick = closeModal;
+    document.getElementById("cancelBtn").onclick = closeModal;
+
+    // 首次渲染
+    renderBoard();
+  </script>
+</body>
+</html>
