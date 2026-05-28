@@ -15,6 +15,7 @@
       <el-menu-item index="/admin/user">用户管理</el-menu-item>
       <el-menu-item index="/admin/role">角色管理</el-menu-item>
       <el-menu-item index="/iv/interview">面试管理</el-menu-item>
+      <el-menu-item index="/xware">维修工单看板</el-menu-item>
     </el-sub-menu>
   </el-menu>
 </template>

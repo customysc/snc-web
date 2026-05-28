@@ -31,3 +31,10 @@ if settings.all_cors_origins:
     )
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
+
+
+@app.on_event("startup")
+def on_startup():
+    from app.core.db import create_db_tables
+    create_db_tables()
+

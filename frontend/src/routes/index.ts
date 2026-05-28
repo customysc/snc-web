@@ -10,6 +10,7 @@ import Admin from "@/views/admin/Index.vue"
 import User from "@/views/admin/user/Index.vue"
 import Role from "@/views/admin/role/Index.vue"
 import Interview from "@/views/iv/interview/Index.vue"
+import XWare from "@/views/xware/Index.vue"
 import MainLayout from "@/components/layout/MainLayout.vue";
 import BlankLayout from "@/components/layout/BlankLayout.vue";
 import AdminLayout from "@/components/layout/AdminLayout.vue";
@@ -66,6 +67,13 @@ const routes: Array<RouteRecordRaw> = [
         component: AdminLayout,
         children: [
             { path: 'interview', name: 'Interview', component: Interview },
+        ]
+    },
+    {
+        path: '/xware',
+        component: AdminLayout,
+        children: [
+            { path: '', name: 'XWare', component: XWare },
         ]
     }
 ]
