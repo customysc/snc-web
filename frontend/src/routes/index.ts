@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, type RouteRecordRaw} from "vue-router";
+import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 import Home from "@/views/home/Index.vue"
 import BBS from "@/views/bbs/threadList/Index.vue"
 import BBSDetail from "@/views/bbs/thread/Index.vue"
@@ -10,6 +10,7 @@ import Admin from "@/views/admin/Index.vue"
 import User from "@/views/admin/user/Index.vue"
 import Role from "@/views/admin/role/Index.vue"
 import Interview from "@/views/iv/interview/Index.vue"
+import Fin from "@/views/fin/index.vue"
 import MainLayout from "@/components/layout/MainLayout.vue";
 import BlankLayout from "@/components/layout/BlankLayout.vue";
 import AdminLayout from "@/components/layout/AdminLayout.vue";
@@ -66,6 +67,13 @@ const routes: Array<RouteRecordRaw> = [
         component: AdminLayout,
         children: [
             { path: 'interview', name: 'Interview', component: Interview },
+        ]
+    },
+    {
+        path: '/fin',
+        component: AdminLayout,
+        children: [
+            { path: '', name: 'Fin', component: Fin },
         ]
     }
 ]
